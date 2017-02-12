@@ -21,7 +21,7 @@ import { MainComponent } from './main/main.component';
     FormsModule,
     HttpModule,
     MaterialModule.forRoot(),
-    FlexLayoutModule.forRoot(),
+    FlexLayoutModule,
     appRoutes
   ],
   providers: [],
