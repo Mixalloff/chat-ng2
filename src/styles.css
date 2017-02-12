@@ -16,3 +16,7 @@ body {
 .circle {
     border-radius: 100%;
 }
+
+.transparent {
+    opacity: 100%;
+}

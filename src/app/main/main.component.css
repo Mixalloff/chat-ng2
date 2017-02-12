@@ -1,0 +1,8 @@
+.friend-container:hover {
+    background-color: #e8f3ff;
+    cursor: pointer;
+}
+
+.chat-column {
+    padding: 0 10px;
+}

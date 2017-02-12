@@ -1,26 +1,37 @@
-<md-card fxLayout="column">
-  <div class="left-column" fxFlex="30%">
-    <div class="search-panel">
-      <md-input-container>
+<md-card fxLayout="row">
+  <div class="chat-column left-column" fxFlex="30%">
+
+    <div class="search-panel" fxLayout="row" fxLayoutAlign="start center">
+      <md-input-container fxFlex>
         <input name="search" type="search" md-input placeholder="Search messages ...">
       </md-input-container>
+      <button class="transparent" md-icon-button><md-icon>search</md-icon></button>
     </div>
-    <div>
-      <div class="friend-container" [style.marginTop.px]="15" *ngFor="let friend of friends" fxLayout="row" fxLayoutAlign="start center">
-        <img class="circle" [src]="friend.avatar" [style.width.px]="75" [style.height.px]="75">
-        <div [style.padding.px]="20">
-          <div class="friend-container__name">
-            <span>{{ friend.surname }}</span>
-            <span>{{ friend.name }}</span>
-          </div>
-          <div class="friend-container__last-message secondary-text">
-            <span>{{ friend.messages[0].from == currentId ? 'You' : friend.name }} : </span>
-            <span>{{ friend.messages[0].text }}</span>
-          </div>
+
+    <md-list>
+      <h3 md-subheader>Dialogs</h3>
+      <md-list-item class="friend-container" *ngFor="let friend of friends" [style.padding.px]="10">
+        <img md-list-avatar class="circle" [src]="friend.avatar" [style.width.px]="75" [style.height.px]="75">
+        <h4 md-line>{{ friend.surname }} {{friend.name}}</h4>
+        <div md-line class="friend-container__last-message secondary-text">
+          <span>{{ friend.messages[0].from == currentId ? 'You' : friend.name }} : </span>
+          <span>{{ friend.messages[0].text }}</span>
         </div>
+      </md-list-item>
+    </md-list>
+
+  </div>
+
+  <div class="chat-column right-column" fxFlex="70%" fxLayout="column">
+    <md-toolbar>Dialog</md-toolbar>
+    <div class="dialog-area" fxFlex></div>
+    <div class="message-place" fxLayout="row" fxLayoutAlign="start center">
+      <md-input-container fxFlex>
+        <input name="message" type="text" md-input placeholder="Enter your message here">
+      </md-input-container>
+      <div>
+        <button class="transparent" md-icon-button color="primary" fxFlex><md-icon>send</md-icon></button>
       </div>
     </div>
   </div>
-
-  <div class="right-column" fxFlex="70%"></div>
 </md-card>
