@@ -19,7 +19,8 @@
       "tsconfig": "tsconfig.json",
       "prefix": "chat",
       "styles": [
-        "styles.css"
+        "styles.css",
+        "chat-theme.scss"
       ],
       "scripts": [],
       "environments": {

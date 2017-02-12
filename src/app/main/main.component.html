@@ -1,3 +1,26 @@
-<md-card>
-  saddas
+<md-card fxLayout="column">
+  <div class="left-column" fxFlex="30%">
+    <div class="search-panel">
+      <md-input-container>
+        <input name="search" type="search" md-input placeholder="Search messages ...">
+      </md-input-container>
+    </div>
+    <div>
+      <div class="friend-container" [style.marginTop.px]="15" *ngFor="let friend of friends" fxLayout="row" fxLayoutAlign="start center">
+        <img class="circle" [src]="friend.avatar" [style.width.px]="75" [style.height.px]="75">
+        <div [style.padding.px]="20">
+          <div class="friend-container__name">
+            <span>{{ friend.surname }}</span>
+            <span>{{ friend.name }}</span>
+          </div>
+          <div class="friend-container__last-message secondary-text">
+            <span>{{ friend.messages[0].from == currentId ? 'You' : friend.name }} : </span>
+            <span>{{ friend.messages[0].text }}</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="right-column" fxFlex="70%"></div>
 </md-card>

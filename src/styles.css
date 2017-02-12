@@ -1,4 +1,4 @@
-@import '~@angular/material/core/theming/prebuilt/deeppurple-amber.css';
+/*@import '~@angular/material/core/theming/prebuilt/deeppurple-amber.css';*/
 
 body {
     margin: 0;
@@ -11,4 +11,8 @@ body {
 
 .text-center {
     text-align: center;
+}
+
+.circle {
+    border-radius: 100%;
 }
