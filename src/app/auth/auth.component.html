@@ -1,0 +1,24 @@
+<div fxLayout="row" fxLayoutAlign="center center">
+  <md-card fxFlex.xs="80%" fxFlex.sm="60%" fxFlex.gt-sm="40%">
+    <form fxLayout="column" fxLayoutAlign="start center">
+
+      <div class="padding-row" fxFlexFill="true">
+        <md-input-container fxFlexFill="true">
+          <input name="login" md-input placeholder="Email or login">
+        </md-input-container>
+        <md-input-container fxFlexFill="true">
+          <input name="password" type="password" md-input placeholder="Password">
+        </md-input-container>
+      </div>
+
+      <div class="actions padding-row" fxFlexFill="true" fxLayout="row" fxLayoutAlign="space-between">
+        <md-checkbox fxFlexAlign="center">Stay checked in</md-checkbox>
+        <button md-button color="primary" fxFlex="30%">SIGN IN</button>
+      </div>
+    </form>
+
+    <div class="text-center" fxFlexFill="true">
+      <a class="secondary-text" href="#">Register now</a>
+    </div>
+  </md-card>
+</div>
