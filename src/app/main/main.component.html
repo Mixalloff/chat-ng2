@@ -10,7 +10,11 @@
 
     <md-list>
       <h3 md-subheader>Dialogs</h3>
-      <md-list-item class="friend-container" *ngFor="let friend of friends" [style.padding.px]="10">
+      <md-list-item class="friend-container"
+                    *ngFor="let friend of friends"
+                    [style.padding.px]="10"
+                    [ngClass]="{ 'selected selected-friend' : friend?.id == selected?.id }"
+                    (click)="selectDialog(friend)">
         <img md-list-avatar class="circle" [src]="friend.avatar" [style.width.px]="75" [style.height.px]="75">
         <h4 md-line>{{ friend.surname }} {{friend.name}}</h4>
         <div md-line class="friend-container__last-message secondary-text">
@@ -23,7 +27,10 @@
   </div>
 
   <div class="chat-column right-column" fxFlex="70%" fxLayout="column">
-    <md-toolbar>Dialog</md-toolbar>
+    <md-toolbar>
+      <img *ngIf="selected" md-list-avatar class="circle" [src]="selected?.avatar" [style.width.px]="30" [style.height.px]="30">
+      <span class="text-horizontal">{{ selected ? selected?.surname + ' ' + selected?.name : 'Dialog' }}</span>
+    </md-toolbar>
     <div class="dialog-area" fxFlex></div>
     <div class="message-place" fxLayout="row" fxLayoutAlign="start center">
       <md-input-container fxFlex>

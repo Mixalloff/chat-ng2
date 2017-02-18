@@ -3,6 +3,13 @@
     cursor: pointer;
 }
 
-.chat-column {
+.chat-column, .text-horizontal {
     padding: 0 10px;
+}
+
+.selected {
+    background-color: #b6d5f7;
+}
+.selected:hover {
+    background-color: #cbdff5;
 }
