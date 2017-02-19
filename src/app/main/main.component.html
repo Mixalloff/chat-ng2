@@ -1,5 +1,5 @@
-<md-card fxLayout="row">
-  <div class="chat-column left-column" fxFlex="30%">
+<md-card class="chat-card" fxLayout="row">
+  <div class="chat-column left-column" fxFlex="30%" fxLayout="column">
 
     <div class="search-panel" fxLayout="row" fxLayoutAlign="start center">
       <md-input-container fxFlex>
@@ -8,37 +8,77 @@
       <button class="transparent" md-icon-button><md-icon>search</md-icon></button>
     </div>
 
-    <md-list>
+    <md-list class="dialogs-list">
       <h3 md-subheader>Dialogs</h3>
-      <md-list-item class="friend-container"
-                    *ngFor="let friend of friends"
+      <md-list-item class="chat-item-container"
+                    *ngFor="let chat of chats"
                     [style.padding.px]="10"
-                    [ngClass]="{ 'selected selected-friend' : friend?.id == selected?.id }"
-                    (click)="selectDialog(friend)">
-        <img md-list-avatar class="circle" [src]="friend.avatar" [style.width.px]="75" [style.height.px]="75">
-        <h4 md-line>{{ friend.surname }} {{friend.name}}</h4>
-        <div md-line class="friend-container__last-message secondary-text">
-          <span>{{ friend.messages[0].from == currentId ? 'You' : friend.name }} : </span>
-          <span>{{ friend.messages[0].text }}</span>
+                    [ngClass]="{ 'selected selected-chat-item' : chat?.id == selected?.id }"
+                    (click)="selectDialog(chat)">
+        <md-spinner *ngIf="!getChatAvatar(chat)"></md-spinner>
+        <img *ngIf="getChatAvatar(chat)" md-list-avatar class="circle" [src]="getChatAvatar(chat)" [style.width.px]="75" [style.height.px]="75">
+        <h4 md-line>{{ getChatName(chat) }}</h4>
+        <div md-line class="chat-container__last-message secondary-text">
+          <span *ngIf="chat?.messages[0]?.from == currentUser.id">You: </span>
+          <span>{{ chat?.messages[0]?.text }}</span>
         </div>
       </md-list-item>
     </md-list>
 
   </div>
 
-  <div class="chat-column right-column" fxFlex="70%" fxLayout="column">
+  <div class="chat-column right-column" fxFlex="70%" fxLayout="column" *ngIf="selected">
     <md-toolbar>
-      <img *ngIf="selected" md-list-avatar class="circle" [src]="selected?.avatar" [style.width.px]="30" [style.height.px]="30">
-      <span class="text-horizontal">{{ selected ? selected?.surname + ' ' + selected?.name : 'Dialog' }}</span>
+      <img *ngIf="selected"
+           md-list-avatar class="circle"
+           [src]="getChatAvatar(selected)"
+           [style.width.px]="30"
+           [style.height.px]="30">
+      <span class="text-horizontal">{{ getChatName(selected) }}</span>
     </md-toolbar>
-    <div class="dialog-area" fxFlex></div>
-    <div class="message-place" fxLayout="row" fxLayoutAlign="start center">
+    <div class="empty-dialog-area" *ngIf="!getMessages(selected).length" fxFlex fxLayout="row" fxLayoutAlign="center center">
+      <span>No messages here</span>
+    </div>
+    <div class="dialog-area" fxFlex *ngIf="getMessages(selected).length">
+      <div class="message-container"
+           *ngFor="let message of getMessages(selected)"
+           [ngClass]="message?.from === currentUser?.id ? 'you' : 'opponent'"
+           fxLayout="row"
+           fxLayoutAlign="center center">
+        <div class="message-item">
+          <span>{{ message.text }}</span>
+        </div>
+        <div class="message-time" fxFlex>
+          <span>{{ message?.time }}</span>
+        </div>
+      </div>
+    </div>
+    <div class="new-message-place" fxLayout="row" fxLayoutAlign="start center">
       <md-input-container fxFlex>
-        <input name="message" type="text" md-input placeholder="Enter your message here">
+        <input name="new-message"
+              type="text"
+              md-input
+              placeholder="Enter your message here"
+              (keyup.enter)="sendMessage(newMessage.value); newMessage.value = '';"
+              #newMessage>
       </md-input-container>
       <div>
-        <button class="transparent" md-icon-button color="primary" fxFlex><md-icon>send</md-icon></button>
+        <button class="transparent"
+                md-icon-button
+                color="primary"
+                fxFlex
+                (click)="sendMessage(newMessage.value); newMessage.value = '';">
+            <md-icon>send</md-icon>
+        </button>
       </div>
+    </div>
+  </div>
+
+
+  <div class="empty-column right-column" fxFlex="70%" fxLayout="column" fxLayoutAlign="center center" *ngIf="!selected">
+    <div class="create-new-dialog-label">
+      <md-icon>forum</md-icon>
+      <button md-button class="uppercase">Create new dialog</button>
     </div>
   </div>
 </md-card>

@@ -1,4 +1,8 @@
-.friend-container:hover {
+.chat-card {
+    height: 80vh;
+}
+
+.chat-item-container:hover {
     background-color: #e8f3ff;
     cursor: pointer;
 }
@@ -12,4 +16,37 @@
 }
 .selected:hover {
     background-color: #cbdff5;
+}
+
+.dialog-area, .dialogs-list {
+    overflow-y: auto;
+}
+
+.message-item {
+    max-width: 70%;
+    padding: 20px;
+    border-radius: 10px;
+    margin: 10px;
+    overflow-wrap: break-word;
+}
+.message-container.opponent > .message-item {
+    background: #c0f5f5;
+}
+.message-container.you  > .message-item{
+    background: #eef9b1;
+}
+.message-container > .message-time,
+.empty-dialog-area {
+    color: gray;
+}
+.message-container.you  > .message-time{
+    order: -1;
+    justify-content: flex-end;
+    display: flex;
+}
+
+.create-new-dialog-label {
+    align-items: center;
+    display: flex;
+    color: gray;
 }

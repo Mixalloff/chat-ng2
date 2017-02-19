@@ -20,3 +20,7 @@ body {
 .transparent {
     opacity: 100%;
 }
+
+.uppercase {
+    text-transform: uppercase;
+}
