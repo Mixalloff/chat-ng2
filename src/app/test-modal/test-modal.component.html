@@ -1,0 +1,20 @@
+<md-card class="modal-dialog">
+
+  <div class="modal-header">
+    <span fxFlex></span>
+    <button fxFlex class="transparent" md-icon-button (click)="dismiss()"><md-icon>close</md-icon></button>
+    <md-divider></md-divider>
+  </div>
+
+  <div class="modal-body">
+    modal body
+    <input type="text" [(ngModel)]="dialogResult">
+  </div>
+
+  <div class="modal-actions">
+    <md-divider></md-divider>
+    <button md-button class="uppercase" (click)="dismiss()">Cancel</button>
+    <button md-button class="uppercase" (click)="close(dialogResult)">OK</button>
+  </div>
+  
+</md-card>

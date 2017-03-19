@@ -1,5 +1,8 @@
+import { ExtendedModalComponent } from './../extended-modal/extended-modal.component';
+import { TestModalComponent } from './../test-modal/test-modal.component';
+import { ModalDialogService } from './../+modal-dialog/modal-dialog.service';
 import { MainService } from './main.service';
-import { Component, OnInit, Inject } from '@angular/core';
+import { Component, OnInit, Inject, ViewChild, ViewContainerRef } from '@angular/core';
 
 @Component({
   selector: 'chat-main',
@@ -8,15 +11,26 @@ import { Component, OnInit, Inject } from '@angular/core';
   providers: [MainService]
 })
 export class MainComponent implements OnInit {
+  // @ViewChild('container', {read: ViewContainerRef}) containerRef;
+
   public currentUser: ChatNamespace.IUser;
   public selected: ChatNamespace.IChat;
   public chats: Array<ChatNamespace.IChat>;
 
-  constructor(@Inject(MainService) private service: MainService) {}
+  constructor(@Inject(MainService) private service: MainService,
+              private modalDialogService: ModalDialogService) {
+
+    // console.log(Reflect.getMetadata('annotations', ExtendedModalComponent)[0]);
+              }
 
   ngOnInit() {
     this.service.getChats().subscribe(chats => this.chats = chats);
     this.currentUser = this.service.currentUser();
+  }
+
+  ngAfterViewInit() {
+    // this.modalDialogService.initModalComponent(TestModalComponent);
+    this.modalDialogService.initModalComponent(ExtendedModalComponent);
   }
 
   selectDialog(chat: ChatNamespace.IChat) {
@@ -47,6 +61,12 @@ export class MainComponent implements OnInit {
     }
 
     this.service.sendMessage(message, this.selected.id);
+  }
+
+  openModal() {
+    this.modalDialogService
+      .open()
+      .subscribe(result => console.log('result from controller', result));
   }
 
 }

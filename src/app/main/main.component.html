@@ -1,4 +1,4 @@
-<md-card class="chat-card" fxLayout="row">
+<md-card class="chat-card" fxLayout="row" #container>
   <div class="chat-column left-column" fxFlex="30%" fxLayout="column">
 
     <div class="search-panel" fxLayout="row" fxLayoutAlign="start center">
@@ -78,7 +78,7 @@
   <div class="empty-column right-column" fxFlex="70%" fxLayout="column" fxLayoutAlign="center center" *ngIf="!selected">
     <div class="create-new-dialog-label">
       <md-icon>forum</md-icon>
-      <button md-button class="uppercase">Create new dialog</button>
+      <button md-button class="uppercase" (click)="openModal()">Create new dialog</button>
     </div>
   </div>
 </md-card>
