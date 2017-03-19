@@ -18,10 +18,7 @@ export class MainComponent implements OnInit {
   public chats: Array<ChatNamespace.IChat>;
 
   constructor(@Inject(MainService) private service: MainService,
-              private modalDialogService: ModalDialogService) {
-
-    // console.log(Reflect.getMetadata('annotations', ExtendedModalComponent)[0]);
-              }
+              private modalDialogService: ModalDialogService) {}
 
   ngOnInit() {
     this.service.getChats().subscribe(chats => this.chats = chats);
@@ -30,7 +27,7 @@ export class MainComponent implements OnInit {
 
   ngAfterViewInit() {
     // this.modalDialogService.initModalComponent(TestModalComponent);
-    this.modalDialogService.initModalComponent(ExtendedModalComponent);
+    // this.modalDialogService.initModalComponent(ExtendedModalComponent);
   }
 
   selectDialog(chat: ChatNamespace.IChat) {
@@ -65,7 +62,7 @@ export class MainComponent implements OnInit {
 
   openModal() {
     this.modalDialogService
-      .open()
+      .open({ component: ExtendedModalComponent, bindings: { someData: 123 } })
       .subscribe(result => console.log('result from controller', result));
   }
 

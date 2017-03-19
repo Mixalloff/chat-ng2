@@ -1,19 +1,20 @@
 import { Injectable, ViewContainerRef, ReflectiveInjector, ComponentRef, Component, ComponentFactoryResolver, Type } from '@angular/core';
 import { Observable, Subject } from 'rxjs/Rx';
+import { IModalInitialObject } from './modal-dialog';
 
 @Injectable()
 export class ModalDialogService {
-  public containerRef: ViewContainerRef;
-  public customDialogComponent: Type<Component>;
-
+  private containerRef: ViewContainerRef;
+  private customDialogComponent: Type<Component>;
   private _afterClosed$: Subject<any> = new Subject();
+  private bindings: any;
 
   public constructor(private componentFactoryResolver: ComponentFactoryResolver ) {}
 
-  public init(containerRef: ViewContainerRef,
-              customDialogComponent: Type<Component>): ModalDialogService {
-    this.containerRef = containerRef;
-    this.customDialogComponent = customDialogComponent;
+  public init(modalInitialObject: IModalInitialObject): ModalDialogService {
+    if (modalInitialObject.container) { this.containerRef = modalInitialObject.container; }
+    if (modalInitialObject.component) { this.customDialogComponent = modalInitialObject.component; }
+    if (modalInitialObject.bindings) { this.bindings = modalInitialObject.bindings; }
     return this;
   }
 
@@ -27,8 +28,9 @@ export class ModalDialogService {
     return this;
   }
 
-  public open(): Observable<any> {
-    const dialog = this.createModalWithData(this.customDialogComponent, {});
+  public open(modalInitialObject?: IModalInitialObject): Observable<any> {
+    if (modalInitialObject) { this.init(modalInitialObject); }
+    const dialog = this.createModalWithData(this.customDialogComponent);
     return this.afterClosed();
   }
 
@@ -56,9 +58,9 @@ export class ModalDialogService {
     return factory.create(injector);
   }
 
-  private createModalWithData<Component>(componentType: Type<Component>, data: any): ComponentRef<Component> {
+  private createModalWithData<Component>(componentType: Type<Component>): ComponentRef<Component> {
     const component = this.createComponent(componentType);
-    Object.assign(component.instance, data);
+    Object.assign(component.instance, { bindings: this.bindings }); // adding data into modal component
     this.containerRef.insert(component.hostView);
 
     return component;

@@ -24,6 +24,8 @@ export class ExtendedModalComponent extends ModalDialogComponent {
 
   constructor(modalDialogService: ModalDialogService) {
     super(modalDialogService);
+
+    console.log(this)
    }
 
 }
