@@ -3,7 +3,7 @@
 
     <div class="search-panel" fxLayout="row" fxLayoutAlign="start center">
       <md-input-container fxFlex>
-        <input name="search" type="search" md-input placeholder="Search messages ...">
+        <input name="search" type="search" mdInput placeholder="Search messages ...">
       </md-input-container>
       <button class="transparent" md-icon-button><md-icon>search</md-icon></button>
     </div>
@@ -57,7 +57,7 @@
       <md-input-container fxFlex>
         <input name="new-message"
               type="text"
-              md-input
+              mdInput
               placeholder="Enter your message here"
               (keyup.enter)="sendMessage(newMessage.value); newMessage.value = '';"
               #newMessage>
