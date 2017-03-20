@@ -6,19 +6,16 @@ import { Component, OnInit, ViewContainerRef, ViewChild } from '@angular/core';
     templateUrl: './modal-dialog.component.html',
     styleUrls: [ './modal-dialog.component.css' ],
 })
-export class ModalDialogComponent implements OnInit {
+export class ModalDialogComponent {
   @ViewChild(ModalDialogComponent, {read: ViewContainerRef}) modalRef;
 
   constructor(protected modalDialogService: ModalDialogService) { }
 
-  ngOnInit() {
-  }
-
-  dismiss() {
+  public dismiss() {
     this.modalDialogService.dismiss();
   }
 
-  close(result) {
+  public close(result) {
     this.modalDialogService.close(result);
   }
 }

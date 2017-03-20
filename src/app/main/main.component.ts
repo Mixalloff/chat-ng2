@@ -11,8 +11,6 @@ import { Component, OnInit, Inject, ViewChild, ViewContainerRef } from '@angular
   providers: [MainService]
 })
 export class MainComponent implements OnInit {
-  // @ViewChild('container', {read: ViewContainerRef}) containerRef;
-
   public currentUser: ChatNamespace.IUser;
   public selected: ChatNamespace.IChat;
   public chats: Array<ChatNamespace.IChat>;
@@ -23,11 +21,6 @@ export class MainComponent implements OnInit {
   ngOnInit() {
     this.service.getChats().subscribe(chats => this.chats = chats);
     this.currentUser = this.service.currentUser();
-  }
-
-  ngAfterViewInit() {
-    // this.modalDialogService.initModalComponent(TestModalComponent);
-    // this.modalDialogService.initModalComponent(ExtendedModalComponent);
   }
 
   selectDialog(chat: ChatNamespace.IChat) {
@@ -62,7 +55,7 @@ export class MainComponent implements OnInit {
 
   openModal() {
     this.modalDialogService
-      .open({ component: ExtendedModalComponent, bindings: { someData: 123 } })
+      .open({ component: ExtendedModalComponent, resolve: { someData: 123 } })
       .subscribe(result => console.log('result from controller', result));
   }
 

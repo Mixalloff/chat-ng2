@@ -13,6 +13,6 @@ export class AppComponent {
   constructor(private modalDialogService: ModalDialogService){}
 
   ngAfterViewInit() {
-    this.modalDialogService.initContainer(this.containerRef);
+    this.modalDialogService.init({ container: this.containerRef });
   }
 }
